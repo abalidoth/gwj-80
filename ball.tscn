@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn1rtqunujxnp"]
+[gd_scene load_steps=13 format=3 uid="uid://dn1rtqunujxnp"]
 
 [ext_resource type="Script" uid="uid://d2flbffslhwpm" path="res://ball.gd" id="1_41u45"]
 [ext_resource type="Texture2D" uid="uid://clrsyvp8a54ft" path="res://assets/circle.svg" id="1_x8fbi"]
@@ -18,6 +18,15 @@ radius = 39.5601
 [sub_resource type="CircleShape2D" id="CircleShape2D_ktgx5"]
 resource_local_to_scene = true
 radius = 44.0
+
+[sub_resource type="Gradient" id="Gradient_01kih"]
+colors = PackedColorArray(1, 1, 1, 0.490196, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1iob0"]
+gradient = SubResource("Gradient_01kih")
+fill = 1
+fill_from = Vector2(0.706422, 0.279817)
+fill_to = Vector2(0.504587, 0.449541)
 
 [node name="Ball" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_x8fbi")
@@ -75,6 +84,15 @@ visible = false
 position = Vector2(0, -1)
 scale = Vector2(0.152778, 0.152778)
 texture = ExtResource("7_vb544")
+
+[node name="Shine" type="Sprite2D" parent="."]
+top_level = true
+texture = SubResource("GradientTexture2D_1iob0")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../Shine")
+update_rotation = false
+update_scale = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

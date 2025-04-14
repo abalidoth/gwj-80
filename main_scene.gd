@@ -13,7 +13,7 @@ var size_most = 1.25
 var drop_left = 330
 var drop_right = 790
 
-var match_size = 4
+var match_size = 5
 
 func set_next_ball():
 	next_ball = Ball.instantiate()
@@ -46,7 +46,12 @@ func _process(delta):
 	if settled:
 		check_for_pop()
 			
+			
+
 func check_for_pop():
+	if len($KillBox.get_overlapping_areas())>0 and $ClickTimer.is_stopped():
+		game_over()
+	
 	#check symbols
 	var to_check = all_balls.duplicate()
 	var out_groups_symbol = []
@@ -94,3 +99,7 @@ func check_for_pop():
 	#this is to prevent balls from hanging
 	for ball in all_balls:
 		ball.apply_impulse(Vector2(0,0))
+
+
+func game_over():
+	get_tree().change_scene_to_file("res://main_scene.tscn")

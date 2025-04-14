@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://pxc3fdos1gn6"]
+[gd_scene load_steps=4 format=3 uid="uid://pxc3fdos1gn6"]
 
 [ext_resource type="Script" uid="uid://b8yxmspw78uu0" path="res://main_scene.gd" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://cp24xn47miu5o" path="res://assets/triangle_icon.svg" id="2_2c62f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
+size = Vector2(546, 84)
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_0f027")
@@ -35,3 +38,11 @@ texture = ExtResource("2_2c62f")
 [node name="ClickTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="KillBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
+position = Vector2(557, 38)
+shape = SubResource("RectangleShape2D_2c62f")

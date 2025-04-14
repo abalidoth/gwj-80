@@ -57,6 +57,7 @@ func change_size(new_scale):
 	$PhysicsShape.shape.radius *= new_scale
 	$CollisionArea/CollisionShape.shape.radius *= new_scale
 	%Icons.scale *= new_scale
+	$Shine.scale *= new_scale
 	
 func _process(delta):
 	if linear_velocity.length()>5:
