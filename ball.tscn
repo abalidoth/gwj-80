@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3 uid="uid://dn1rtqunujxnp"]
+
+[ext_resource type="Script" uid="uid://d2flbffslhwpm" path="res://ball.gd" id="1_41u45"]
+[ext_resource type="Texture2D" uid="uid://clrsyvp8a54ft" path="res://assets/circle.svg" id="1_x8fbi"]
+[ext_resource type="Texture2D" uid="uid://bhfce4wpg476i" path="res://assets/star_icon.svg" id="3_01kih"]
+[ext_resource type="Texture2D" uid="uid://8e4ocvt055bf" path="res://assets/circle_icon.svg" id="4_1iob0"]
+[ext_resource type="Texture2D" uid="uid://cp24xn47miu5o" path="res://assets/triangle_icon.svg" id="5_0jqm0"]
+[ext_resource type="Texture2D" uid="uid://bxwkk3k46pdqi" path="res://assets/square_icon.svg" id="6_nidkk"]
+[ext_resource type="Texture2D" uid="uid://bnsmujdw0hpjl" path="res://assets/cross_icon.svg" id="7_vb544"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x8fbi"]
+bounce = 0.2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_41u45"]
+resource_local_to_scene = true
+radius = 39.5601
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ktgx5"]
+resource_local_to_scene = true
+radius = 47.1699
+
+[node name="Ball" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_x8fbi")
+script = ExtResource("1_41u45")
+
+[node name="PhysicsShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_41u45")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="CollisionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
+shape = SubResource("CircleShape2D_ktgx5")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Circle" type="Sprite2D" parent="."]
+scale = Vector2(0.206667, 0.206667)
+texture = ExtResource("1_x8fbi")
+
+[node name="Icons" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="StarIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(-7.62939e-06, -3)
+scale = Vector2(0.179389, 0.179389)
+texture = ExtResource("3_01kih")
+
+[node name="CircleIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(-3.8147e-06, -3.8147e-06)
+scale = Vector2(0.211538, 0.211538)
+texture = ExtResource("4_1iob0")
+
+[node name="TriangleIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(0.999992, -4.00002)
+scale = Vector2(0.139831, 0.139831)
+texture = ExtResource("5_0jqm0")
+
+[node name="SquareIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.190722, 0.190722)
+texture = ExtResource("6_nidkk")
+
+[node name="CrossIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.152778, 0.152778)
+texture = ExtResource("7_vb544")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_shape_entered" from="CollisionArea" to="." method="_on_collision_area_area_shape_entered"]
