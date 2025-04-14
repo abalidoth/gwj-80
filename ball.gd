@@ -86,3 +86,10 @@ func get_color_neighbors():
 		if i.get_parent().ball_color == ball_color:
 			out.append(i.get_parent())
 	return out
+
+func pop():
+	var tween = get_tree().create_tween()
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_ease(Tween.EASE_IN)
+	tween.tween_property($Circle,"scale",Vector2.ZERO, 0.1)
+	tween.tween_callback(queue_free)

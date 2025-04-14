@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://pxc3fdos1gn6"]
+[gd_scene load_steps=3 format=3 uid="uid://pxc3fdos1gn6"]
 
 [ext_resource type="Script" uid="uid://b8yxmspw78uu0" path="res://main_scene.gd" id="1_0f027"]
+[ext_resource type="Texture2D" uid="uid://cp24xn47miu5o" path="res://assets/triangle_icon.svg" id="2_2c62f"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_0f027")
@@ -9,8 +10,28 @@ script = ExtResource("1_0f027")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2(250, 5)
-polygon = PackedVector2Array(8, 630, 6, 46, 51, 46, 48, 518, 307.328, 592.984, 579, 522, 576, 52, 619, 52, 622, 627)
+polygon = PackedVector2Array(8, 630, 8, -43, 49, -41, 48, 518, 307.328, 592.984, 579, 522, 572, -26, 619, -22, 622, 627)
 
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
 modulate = Color(0.18, 0.18, 0.18, 1)
-polygon = PackedVector2Array(258, 54, 300, 54, 300, 524, 558.719, 594.964, 830, 523, 826, 60, 869, 60, 874, 635, 259, 635)
+polygon = PackedVector2Array(262, -31, 300, -43, 300, 524, 558.719, 594.964, 830, 523, 825, -20, 873, -23, 874, 635, 259, 635)
+
+[node name="NextBallMarker" type="Marker2D" parent="."]
+position = Vector2(1036, 94)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 1014.0
+offset_top = 19.0
+offset_right = 1055.0
+offset_bottom = 42.0
+text = "NEXT"
+
+[node name="DropIcon" type="Sprite2D" parent="."]
+position = Vector2(791, 28)
+rotation = 3.14159
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_2c62f")
+
+[node name="ClickTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
