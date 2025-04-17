@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://pxc3fdos1gn6"]
+[gd_scene load_steps=11 format=3 uid="uid://pxc3fdos1gn6"]
 
 [ext_resource type="Script" uid="uid://b8yxmspw78uu0" path="res://main_scene.gd" id="1_0f027"]
-[ext_resource type="Texture2D" uid="uid://cp24xn47miu5o" path="res://assets/triangle_icon.svg" id="2_2c62f"]
-[ext_resource type="Texture2D" uid="uid://b36il02yo07ks" path="res://assets/texture-1516370_1920.jpg" id="3_8mm7a"]
+[ext_resource type="Texture2D" uid="uid://ctvsduuoh6mfs" path="res://assets/board-587598_1920.jpg" id="2_d5x1h"]
 [ext_resource type="Shader" uid="uid://driyddt5xycld" path="res://line.gdshader" id="3_d5x1h"]
+[ext_resource type="Texture2D" uid="uid://dysl54gguhy4" path="res://assets/drop_icon.svg" id="4_d5x1h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
 size = Vector2(546, 84)
@@ -33,13 +33,16 @@ shader_parameter/color1 = Color(1, 1, 1, 1)
 shader_parameter/color2 = Color(0, 0, 0, 1)
 shader_parameter/opacity = 1.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d5x1h"]
+size = Vector2(606, 20)
+
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_0f027")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 1152.0
 offset_bottom = 648.0
-texture = ExtResource("3_8mm7a")
+texture = ExtResource("2_d5x1h")
 expand_mode = 1
 
 [node name="KillBox" type="Area2D" parent="."]
@@ -77,8 +80,14 @@ texture_mode = 1
 position = Vector2(791, 28)
 rotation = 3.14159
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_2c62f")
+texture = ExtResource("4_d5x1h")
 
 [node name="ClickTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(570, -154)
+shape = SubResource("RectangleShape2D_d5x1h")

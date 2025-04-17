@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="-380.48042"
-     inkscape:cy="155.23391"
+     inkscape:zoom="1.979899"
+     inkscape:cx="43.900218"
+     inkscape:cy="147.34743"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,19 +55,19 @@
      transform="translate(-64.761041,-113.80866)">
     <path
        sodipodi:type="star"
-       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.06500006;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       style="opacity:1;fill:#000000;fill-opacity:0.88679248;fill-rule:evenodd;stroke:#000000;stroke-width:5.06500006;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
        id="path3105"
        sodipodi:sides="4"
        sodipodi:cx="102.80953"
        sodipodi:cy="151.85715"
        sodipodi:r1="35.537804"
-       sodipodi:r2="0.35537803"
+       sodipodi:r2="1.9640513"
        sodipodi:arg1="1.5707963"
-       sodipodi:arg2="2.3561945"
+       sodipodi:arg2="2.4043249"
        inkscape:flatsided="false"
        inkscape:rounded="0"
        inkscape:randomized="0"
-       d="m 102.80953,187.39495 -0.25129,-35.28651 -35.286511,-0.25129 35.286511,-0.25129 0.25129,-35.28652 0.25129,35.28652 35.28652,0.25129 -35.28652,0.25129 z"
+       d="m 102.80953,187.39495 -1.454,-34.21743 -34.083801,-1.32037 34.217431,-1.45401 1.32037,-34.0838 1.45401,34.21744 34.0838,1.32037 -34.21744,1.454 z"
        inkscape:transform-center-x="1.2952381e-06"
        inkscape:transform-center-y="-1.9131608e-06" />
   </g>

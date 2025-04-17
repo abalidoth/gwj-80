@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform float frequency = 10.0;
+uniform float frequency = 15.0;
 uniform float speed = 5.0;
 
 

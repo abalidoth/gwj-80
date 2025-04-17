@@ -28,8 +28,9 @@ func set_next_ball():
 	next_ball.freeze = true
 	var new_scale = rng.randf_range(size_least, size_most)
 	next_ball.change_size(new_scale)
-	$Line2D.material.set_shader_parameter("color1",next_ball.modulate)
-	$DropIcon.modulate = next_ball.modulate
+	var ball_color:Color = next_ball.get_node("Circle").modulate
+	$Line2D.material.set_shader_parameter("color1",ball_color)
+	$DropIcon.modulate = ball_color
 	match rng.randi() % 10:
 		0:
 			next_ball.set_bomb()
@@ -37,6 +38,8 @@ func set_next_ball():
 			next_ball.set_rubber()
 		2:
 			next_ball.set_magnet()
+		3:
+			next_ball.set_bonus()
 
 func _ready():
 	set_next_ball()
@@ -94,7 +97,13 @@ func check_for_pop():
 					current_group.append(i)
 		out_groups_symbol.append(already_checked)
 	for group in out_groups_symbol:
-		if len(group) >= match_size:
+		var size = 0
+		for ball in group:
+			if ball.bonus:
+				size += 2
+			else:
+				size += 1
+		if size >= match_size:
 			for i in group:
 				all_balls.erase(i)
 				i.pop()
@@ -116,7 +125,13 @@ func check_for_pop():
 					current_group.append(i)
 		out_groups_color.append(already_checked)
 	for group in out_groups_color:
-		if len(group) >= match_size:
+		var size = 0
+		for ball in group:
+			if ball.bonus:
+				size += 2
+			else:
+				size += 1
+		if size >= match_size:
 			for i in group:
 				all_balls.erase(i)
 				i.pop()

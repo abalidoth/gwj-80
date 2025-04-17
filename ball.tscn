@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dn1rtqunujxnp"]
+[gd_scene load_steps=26 format=3 uid="uid://dn1rtqunujxnp"]
 
 [ext_resource type="Script" uid="uid://d2flbffslhwpm" path="res://ball.gd" id="1_41u45"]
 [ext_resource type="Texture2D" uid="uid://clrsyvp8a54ft" path="res://assets/circle.svg" id="1_x8fbi"]
@@ -11,6 +11,7 @@
 [ext_resource type="Material" uid="uid://bgshujn2pcqsi" path="res://assets/smoke_particles.tres" id="9_nidkk"]
 [ext_resource type="Texture2D" uid="uid://oi6yvr7caac" path="res://assets/rubber_mask.svg" id="10_nidkk"]
 [ext_resource type="Shader" uid="uid://7lr3ytpf4wla" path="res://magnet.gdshader" id="11_vb544"]
+[ext_resource type="Texture2D" uid="uid://cb6scvrh4l7y4" path="res://assets/sparkle.svg" id="12_mkf06"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vb544"]
 resource_local_to_scene = true
@@ -37,18 +38,39 @@ fill_to = Vector2(0.504587, 0.449541)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mkf06"]
 shader = ExtResource("11_vb544")
-shader_parameter/frequency = 10.0
-shader_parameter/speed = 1.0
+shader_parameter/frequency = 15.0
+shader_parameter/speed = 5.0
 
 [sub_resource type="Gradient" id="Gradient_tqsku"]
 offsets = PackedFloat32Array(0, 0.532468, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.902597, 1, 1, 1, 0)
+colors = PackedColorArray(0, 0, 0, 0.639216, 0, 0, 0, 0.623529, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_n0txf"]
 gradient = SubResource("Gradient_tqsku")
 fill = 1
 fill_from = Vector2(0.5, 0.495413)
 fill_to = Vector2(0.862385, 0.899083)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tqsku"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_tqsku"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_n0txf"]
+curve = SubResource("Curve_tqsku")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uladk"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 24.13
+angle_min = 1.07288e-05
+angle_max = 360.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_n0txf")
 
 [node name="Ball" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_vb544")
@@ -144,6 +166,15 @@ unique_name_in_owner = true
 visible = false
 material = SubResource("ShaderMaterial_mkf06")
 texture = SubResource("GradientTexture2D_n0txf")
+
+[node name="BonusParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_tqsku")
+emitting = false
+amount = 4
+texture = ExtResource("12_mkf06")
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_uladk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

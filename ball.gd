@@ -22,6 +22,7 @@ signal explosion(ball_position:Vector2)
 var bomb = false
 var rubber = false
 var magnet = false
+var bonus = false
 
 func _ready():
 	
@@ -32,15 +33,15 @@ func _ready():
 	
 	match ball_color:
 		BALL_COLOR.RED:
-			modulate = Color.RED
+			$Circle.modulate = Color.RED
 		BALL_COLOR.BLUE:
-			modulate = Color.DODGER_BLUE
+			$Circle.modulate = Color.DODGER_BLUE
 		BALL_COLOR.GREEN:
-			modulate = Color.LIME_GREEN
+			$Circle.modulate = Color.LIME_GREEN
 		BALL_COLOR.YELLOW:
-			modulate = Color.YELLOW
+			$Circle.modulate = Color.YELLOW
 		BALL_COLOR.PURPLE:
-			modulate = Color.VIOLET
+			$Circle.modulate = Color.VIOLET
 			
 	match ball_symbol:
 		BALL_SYMBOL.STAR:
@@ -65,6 +66,8 @@ func change_size(new_scale):
 	$Shine.scale *= new_scale
 	%SmokeParticles.scale *= new_scale
 	%RubberMask.scale *= new_scale
+	%MagnetMask.scale *= new_scale
+	%BonusParticles.scale *= new_scale
 	
 func _process(delta):
 	if linear_velocity.length()>5:
@@ -116,3 +119,7 @@ func set_rubber():
 func set_magnet():
 	magnet = true
 	%MagnetMask.visible = true
+
+func set_bonus():
+	bonus = true
+	%BonusParticles.emitting = true
