@@ -21,6 +21,7 @@ signal explosion(ball_position:Vector2)
 
 var bomb = false
 var rubber = false
+var magnet = false
 
 func _ready():
 	
@@ -112,3 +113,6 @@ func set_rubber():
 	%RubberMask.visible = true
 	physics_material_override.bounce = 0.8
 	
+func set_magnet():
+	magnet = true
+	%MagnetMask.visible = true

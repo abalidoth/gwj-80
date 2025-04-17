@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dn1rtqunujxnp"]
+[gd_scene load_steps=21 format=3 uid="uid://dn1rtqunujxnp"]
 
 [ext_resource type="Script" uid="uid://d2flbffslhwpm" path="res://ball.gd" id="1_41u45"]
 [ext_resource type="Texture2D" uid="uid://clrsyvp8a54ft" path="res://assets/circle.svg" id="1_x8fbi"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dlqglm67epcd2" path="res://assets/smoke_texture.tres" id="8_0jqm0"]
 [ext_resource type="Material" uid="uid://bgshujn2pcqsi" path="res://assets/smoke_particles.tres" id="9_nidkk"]
 [ext_resource type="Texture2D" uid="uid://oi6yvr7caac" path="res://assets/rubber_mask.svg" id="10_nidkk"]
+[ext_resource type="Shader" uid="uid://7lr3ytpf4wla" path="res://magnet.gdshader" id="11_vb544"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vb544"]
 resource_local_to_scene = true
@@ -33,6 +34,21 @@ fill_from = Vector2(0.706422, 0.279817)
 fill_to = Vector2(0.504587, 0.449541)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mkf06"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mkf06"]
+shader = ExtResource("11_vb544")
+shader_parameter/frequency = 10.0
+shader_parameter/speed = 1.0
+
+[sub_resource type="Gradient" id="Gradient_tqsku"]
+offsets = PackedFloat32Array(0, 0.532468, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.902597, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n0txf"]
+gradient = SubResource("Gradient_tqsku")
+fill = 1
+fill_from = Vector2(0.5, 0.495413)
+fill_to = Vector2(0.862385, 0.899083)
 
 [node name="Ball" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_vb544")
@@ -114,8 +130,6 @@ process_material = ExtResource("9_nidkk")
 [node name="SmokeTransform" type="RemoteTransform2D" parent="."]
 remote_path = NodePath("../CanvasLayer/SmokeParticles")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-
 [node name="RubberMask" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -124,6 +138,12 @@ material = SubResource("CanvasItemMaterial_mkf06")
 position = Vector2(2.98023e-07, 10)
 scale = Vector2(0.251613, 0.247863)
 texture = ExtResource("10_nidkk")
+
+[node name="MagnetMask" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_mkf06")
+texture = SubResource("GradientTexture2D_n0txf")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

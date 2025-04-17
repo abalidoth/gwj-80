@@ -18,6 +18,7 @@ var drop_right = 790
 var match_size = 5
 
 var explosion_force = 600
+var magnet_force = 5000
 
 func set_next_ball():
 	next_ball = Ball.instantiate()
@@ -29,11 +30,13 @@ func set_next_ball():
 	next_ball.change_size(new_scale)
 	$Line2D.material.set_shader_parameter("color1",next_ball.modulate)
 	$DropIcon.modulate = next_ball.modulate
-	match rng.randi() % 3:
+	match rng.randi() % 10:
 		0:
 			next_ball.set_bomb()
 		1:
 			next_ball.set_rubber()
+		2:
+			next_ball.set_magnet()
 
 func _ready():
 	set_next_ball()
@@ -62,7 +65,15 @@ func _process(delta):
 			game_over()
 	check_for_pop()
 			
-			
+func _physics_process(delta):
+	for ball1 in all_balls:
+		if ball1.magnet:
+			for ball2 in all_balls:
+				if ball1 != ball2:
+					var force_dist = (ball1.position - ball2.position).abs()
+					var force_direction = (ball1.position - ball2.position)/force_dist
+					ball2.apply_central_force(force_direction * delta * magnet_force)
+	
 
 func check_for_pop():
 	
@@ -120,6 +131,7 @@ func game_over():
 
 func _on_ball_explosion(explosion_position:Vector2):
 	var smoke_blast = SmokeBlast.instantiate()
+	add_child(smoke_blast)
 	smoke_blast.position = explosion_position
 	smoke_blast.emitting=true
 	for ball in all_balls:
