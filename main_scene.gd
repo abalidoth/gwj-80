@@ -2,6 +2,8 @@ extends Node2D
 
 var Ball = preload("res://ball.tscn")
 
+var SmokeBlast = preload("res://assets/smoke_blast.tscn")
+
 var all_balls:Array[Ball] = []
 var rng = RandomNumberGenerator.new()
 
@@ -15,28 +17,40 @@ var drop_right = 790
 
 var match_size = 5
 
+var explosion_force = 600
+
 func set_next_ball():
 	next_ball = Ball.instantiate()
+	next_ball.explosion.connect(_on_ball_explosion)
 	add_child(next_ball)
 	next_ball.position = $NextBallMarker.position
 	next_ball.freeze = true
 	var new_scale = rng.randf_range(size_least, size_most)
 	next_ball.change_size(new_scale)
+	$Line2D.material.set_shader_parameter("color1",next_ball.modulate)
+	$DropIcon.modulate = next_ball.modulate
+	match rng.randi() % 3:
+		0:
+			next_ball.set_bomb()
+		1:
+			next_ball.set_rubber()
 
 func _ready():
 	set_next_ball()
 
 func _input(event):
+	var mouse_x_clamped = clamp(event.position.x,drop_left, drop_right)
 	if event is InputEventMouseButton and $ClickTimer.is_stopped():
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			var new_ball = next_ball
-			new_ball.position = Vector2(clamp(event.position.x,drop_left, drop_right),50)
+			new_ball.position = Vector2(mouse_x_clamped,50)
 			all_balls.append(new_ball)
 			new_ball.freeze = false
 			set_next_ball()
 			$ClickTimer.start()
 	elif event is InputEventMouseMotion:
-		$DropIcon.position = Vector2(clamp(event.position.x,drop_left,drop_right),25)
+		$DropIcon.position = Vector2(mouse_x_clamped,25)
+		$Line2D.points[-1] = Vector2(mouse_x_clamped,25)
 
 func _process(delta):
 	var settled = true
@@ -44,13 +58,13 @@ func _process(delta):
 		if ball.moving:
 			settled = false
 	if settled:
-		check_for_pop()
+		if len($KillBox.get_overlapping_areas())>0 and $ClickTimer.is_stopped():
+			game_over()
+	check_for_pop()
 			
 			
 
 func check_for_pop():
-	if len($KillBox.get_overlapping_areas())>0 and $ClickTimer.is_stopped():
-		game_over()
 	
 	#check symbols
 	var to_check = all_balls.duplicate()
@@ -103,3 +117,17 @@ func check_for_pop():
 
 func game_over():
 	get_tree().change_scene_to_file("res://main_scene.tscn")
+
+func _on_ball_explosion(explosion_position:Vector2):
+	var smoke_blast = SmokeBlast.instantiate()
+	smoke_blast.position = explosion_position
+	smoke_blast.emitting=true
+	for ball in all_balls:
+		var direction = (ball.position - explosion_position)
+		var distance = direction.length()
+		if distance >0.1:
+			ball.apply_impulse(direction * explosion_force / distance)
+			
+	var smoke_tween = smoke_blast.create_tween()
+	smoke_tween.tween_interval(2)
+	smoke_tween.tween_callback(smoke_blast.queue_free)

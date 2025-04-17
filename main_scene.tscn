@@ -1,33 +1,77 @@
-[gd_scene load_steps=4 format=3 uid="uid://pxc3fdos1gn6"]
+[gd_scene load_steps=10 format=3 uid="uid://pxc3fdos1gn6"]
 
 [ext_resource type="Script" uid="uid://b8yxmspw78uu0" path="res://main_scene.gd" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://cp24xn47miu5o" path="res://assets/triangle_icon.svg" id="2_2c62f"]
+[ext_resource type="Texture2D" uid="uid://b36il02yo07ks" path="res://assets/texture-1516370_1920.jpg" id="3_8mm7a"]
+[ext_resource type="Shader" uid="uid://driyddt5xycld" path="res://line.gdshader" id="3_d5x1h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
 size = Vector2(546, 84)
 
+[sub_resource type="Gradient" id="Gradient_nfk4m"]
+offsets = PackedFloat32Array(0, 0.676056, 1)
+colors = PackedColorArray(0.663125, 0.242975, 0, 1, 0.936047, 0.456737, 0.207696, 1, 0, 1, 0.666667, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_66tet"]
+noise_type = 2
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ycvg"]
+width = 1024
+height = 1024
+invert = true
+color_ramp = SubResource("Gradient_nfk4m")
+noise = SubResource("FastNoiseLite_66tet")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8mm7a"]
+shader = ExtResource("3_d5x1h")
+shader_parameter/frequency = 1.5
+shader_parameter/amplitude = 1000.0
+shader_parameter/speed = 10.0
+shader_parameter/direction = -1.0
+shader_parameter/color1 = Color(1, 1, 1, 1)
+shader_parameter/color2 = Color(0, 0, 0, 1)
+shader_parameter/opacity = 1.0
+
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_0f027")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("3_8mm7a")
+expand_mode = 1
+
+[node name="KillBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
+position = Vector2(557, 38)
+shape = SubResource("RectangleShape2D_2c62f")
+
+[node name="Polygon2D" type="Polygon2D" parent="KillBox"]
+modulate = Color(1, 0, 0, 0.247059)
+polygon = PackedVector2Array(283, -3, 832, -3, 832, 78, 285, 79)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2(250, 5)
-polygon = PackedVector2Array(8, 630, 8, -43, 49, -41, 48, 518, 307.328, 592.984, 579, 522, 572, -26, 619, -22, 622, 627)
+polygon = PackedVector2Array(8, 630, 14, -175, 48, -172, 48, 518, 307.328, 592.984, 579, 522, 577, -168, 625, -172, 622, 627)
 
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
-modulate = Color(0.18, 0.18, 0.18, 1)
-polygon = PackedVector2Array(262, -31, 300, -43, 300, 524, 558.719, 594.964, 830, 523, 825, -20, 873, -23, 874, 635, 259, 635)
+texture = SubResource("NoiseTexture2D_7ycvg")
+polygon = PackedVector2Array(262, -31, 300, -43, 300, 524, 558.719, 594.964, 830, 523, 825, -20, 873, -23, 874, 672, 260, 661)
 
 [node name="NextBallMarker" type="Marker2D" parent="."]
 position = Vector2(1036, 94)
 
-[node name="Label" type="Label" parent="."]
-offset_left = 1014.0
-offset_top = 19.0
-offset_right = 1055.0
-offset_bottom = 42.0
-text = "NEXT"
+[node name="Line2D" type="Line2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_8mm7a")
+points = PackedVector2Array(1037, 94, 1037, 25, 791, 25)
+texture_mode = 1
 
 [node name="DropIcon" type="Sprite2D" parent="."]
 position = Vector2(791, 28)
@@ -38,11 +82,3 @@ texture = ExtResource("2_2c62f")
 [node name="ClickTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-
-[node name="KillBox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
-position = Vector2(557, 38)
-shape = SubResource("RectangleShape2D_2c62f")

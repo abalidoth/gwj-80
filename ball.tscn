@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dn1rtqunujxnp"]
+[gd_scene load_steps=17 format=3 uid="uid://dn1rtqunujxnp"]
 
 [ext_resource type="Script" uid="uid://d2flbffslhwpm" path="res://ball.gd" id="1_41u45"]
 [ext_resource type="Texture2D" uid="uid://clrsyvp8a54ft" path="res://assets/circle.svg" id="1_x8fbi"]
@@ -7,8 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://cp24xn47miu5o" path="res://assets/triangle_icon.svg" id="5_0jqm0"]
 [ext_resource type="Texture2D" uid="uid://bxwkk3k46pdqi" path="res://assets/square_icon.svg" id="6_nidkk"]
 [ext_resource type="Texture2D" uid="uid://bnsmujdw0hpjl" path="res://assets/cross_icon.svg" id="7_vb544"]
+[ext_resource type="Texture2D" uid="uid://dlqglm67epcd2" path="res://assets/smoke_texture.tres" id="8_0jqm0"]
+[ext_resource type="Material" uid="uid://bgshujn2pcqsi" path="res://assets/smoke_particles.tres" id="9_nidkk"]
+[ext_resource type="Texture2D" uid="uid://oi6yvr7caac" path="res://assets/rubber_mask.svg" id="10_nidkk"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x8fbi"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vb544"]
+resource_local_to_scene = true
 bounce = 0.2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_41u45"]
@@ -28,8 +32,10 @@ fill = 1
 fill_from = Vector2(0.706422, 0.279817)
 fill_to = Vector2(0.504587, 0.449541)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mkf06"]
+
 [node name="Ball" type="RigidBody2D"]
-physics_material_override = SubResource("PhysicsMaterial_x8fbi")
+physics_material_override = SubResource("PhysicsMaterial_vb544")
 script = ExtResource("1_41u45")
 
 [node name="PhysicsShape" type="CollisionShape2D" parent="."]
@@ -89,10 +95,35 @@ texture = ExtResource("7_vb544")
 top_level = true
 texture = SubResource("GradientTexture2D_1iob0")
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+[node name="ShineTransform" type="RemoteTransform2D" parent="."]
 remote_path = NodePath("../Shine")
 update_rotation = false
 update_scale = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+follow_viewport_enabled = true
+
+[node name="SmokeParticles" type="GPUParticles2D" parent="CanvasLayer"]
+unique_name_in_owner = true
+emitting = false
+texture = ExtResource("8_0jqm0")
+randomness = 0.88
+process_material = ExtResource("9_nidkk")
+
+[node name="SmokeTransform" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../CanvasLayer/SmokeParticles")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="RubberMask" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.403922)
+material = SubResource("CanvasItemMaterial_mkf06")
+position = Vector2(2.98023e-07, 10)
+scale = Vector2(0.251613, 0.247863)
+texture = ExtResource("10_nidkk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

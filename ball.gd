@@ -17,6 +17,10 @@ var neighbors = {}
 var neighbor_lines = {}
 
 signal other_ball_touched(this_ball: Ball, other_ball:Ball)
+signal explosion(ball_position:Vector2)
+
+var bomb = false
+var rubber = false
 
 func _ready():
 	
@@ -58,6 +62,8 @@ func change_size(new_scale):
 	$CollisionArea/CollisionShape.shape.radius *= new_scale
 	%Icons.scale *= new_scale
 	$Shine.scale *= new_scale
+	%SmokeParticles.scale *= new_scale
+	%RubberMask.scale *= new_scale
 	
 func _process(delta):
 	if linear_velocity.length()>5:
@@ -94,3 +100,15 @@ func pop():
 	tween.set_ease(Tween.EASE_IN)
 	tween.tween_property($Circle,"scale",Vector2.ZERO, 0.1)
 	tween.tween_callback(queue_free)
+	if bomb:
+		explosion.emit(position)
+
+func set_bomb():
+	bomb = true
+	%SmokeParticles.emitting=true
+	
+func set_rubber():
+	rubber = true
+	%RubberMask.visible = true
+	physics_material_override.bounce = 0.8
+	

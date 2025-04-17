@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbowbemyicagv"]
+
+[ext_resource type="Texture2D" uid="uid://dlqglm67epcd2" path="res://assets/smoke_texture.tres" id="1_oed2s"]
+[ext_resource type="Material" uid="uid://bgshujn2pcqsi" path="res://assets/smoke_particles.tres" id="2_7y6oe"]
+
+[node name="SmokeBlast" type="GPUParticles2D"]
+emitting = false
+amount = 24
+texture = ExtResource("1_oed2s")
+lifetime = 1.95
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("2_7y6oe")
