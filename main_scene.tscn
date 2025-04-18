@@ -40,6 +40,7 @@ size = Vector2(606, 20)
 script = ExtResource("1_0f027")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.76, 0.76, 0.76, 1)
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("2_d5x1h")

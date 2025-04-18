@@ -18,7 +18,8 @@ var drop_right = 790
 var match_size = 5
 
 var explosion_force = 600
-var magnet_force = 5000
+var magnet_force = 50000
+var force_radius = 100
 
 func set_next_ball():
 	next_ball = Ball.instantiate()
@@ -73,10 +74,10 @@ func _physics_process(delta):
 		if ball1.magnet:
 			for ball2 in all_balls:
 				if ball1 != ball2:
-					var force_dist = (ball1.position - ball2.position).abs()
+					var force_dist = (ball1.position - ball2.position).length()
 					var force_direction = (ball1.position - ball2.position)/force_dist
-					ball2.apply_central_force(force_direction * delta * magnet_force)
-	
+					ball2.apply_central_force((force_radius/force_dist) * force_direction * delta * magnet_force)
+					ball1.apply_central_force(-(force_radius/force_dist) * force_direction * delta * magnet_force)
 
 func check_for_pop():
 	
