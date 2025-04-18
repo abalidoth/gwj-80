@@ -25,7 +25,7 @@ var force_radius = 100
 var death_timer_grace = 0.25
 
 var num_stars = 0
-var star_req = 4
+var star_req = 7
 var star_scaling = 1.2
 var star_score = 0
 
@@ -70,6 +70,9 @@ func _input(event):
 		$Line2D.points[-1] = Vector2(mouse_x_clamped,25)
 
 func _process(delta):
+	
+	
+	$Label.text = str(star_score)+"/"+str(star_req)
 	if len($KillBox.get_overlapping_areas())>0:
 		if $DeathTimer.is_stopped():
 			$DeathTimer.start()
@@ -133,6 +136,7 @@ func check_for_pop():
 				size += 1
 		if size >= match_size:
 			star_score += size
+			$StarBar.max_value = star_req
 			for i in group:
 				all_balls.erase(i)
 				i.pop()
@@ -162,6 +166,7 @@ func check_for_pop():
 				size += 1
 		if size >= match_size:
 			star_score += size
+			$StarBar.max_value = star_req
 			for i in group:
 				all_balls.erase(i)
 				i.pop()
