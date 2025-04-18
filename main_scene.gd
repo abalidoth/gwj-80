@@ -49,6 +49,8 @@ func set_next_ball():
 			next_ball.set_magnet()
 		3:
 			next_ball.set_bonus()
+		4:
+			next_ball.set_gem()
 
 func _ready():
 	set_next_ball()
@@ -71,8 +73,6 @@ func _input(event):
 
 func _process(delta):
 	
-	
-	$Label.text = str(star_score)+"/"+str(star_req)
 	if len($KillBox.get_overlapping_areas())>0:
 		if $DeathTimer.is_stopped():
 			$DeathTimer.start()
@@ -113,6 +113,7 @@ func check_for_pop():
 	
 	#check symbols
 	var to_check = all_balls.duplicate()
+	var to_pop = []
 	var out_groups_symbol = []
 	while to_check:
 		var current_group = []
@@ -138,8 +139,9 @@ func check_for_pop():
 			star_score += size
 			$StarBar.max_value = star_req
 			for i in group:
-				all_balls.erase(i)
-				i.pop()
+				to_pop.append(i)
+				#all_balls.erase(i)
+				#i.pop()
 				
 	#check colors
 	to_check = all_balls.duplicate()
@@ -168,8 +170,19 @@ func check_for_pop():
 			star_score += size
 			$StarBar.max_value = star_req
 			for i in group:
-				all_balls.erase(i)
-				i.pop()
+				to_pop.append(i)
+				#all_balls.erase(i)
+				#i.pop()
+	for i in to_pop:
+		var gem_neighbors = i.get_gem_neighbors()
+		for j in gem_neighbors:
+			if j not in to_pop:
+				all_balls.erase(j)
+				j.pop()
+				star_score += 1
+		all_balls.erase(i)
+		i.pop()
+	
 	
 	#this is to prevent balls from hanging
 	for ball in all_balls:

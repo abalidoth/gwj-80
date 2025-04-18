@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dn1rtqunujxnp"]
+[gd_scene load_steps=30 format=3 uid="uid://dn1rtqunujxnp"]
 
 [ext_resource type="Script" uid="uid://d2flbffslhwpm" path="res://ball.gd" id="1_41u45"]
 [ext_resource type="Texture2D" uid="uid://clrsyvp8a54ft" path="res://assets/circle.svg" id="1_x8fbi"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://oi6yvr7caac" path="res://assets/rubber_mask.svg" id="10_nidkk"]
 [ext_resource type="Shader" uid="uid://7lr3ytpf4wla" path="res://magnet.gdshader" id="11_vb544"]
 [ext_resource type="Texture2D" uid="uid://cb6scvrh4l7y4" path="res://assets/sparkle.svg" id="12_mkf06"]
+[ext_resource type="Shader" uid="uid://dlbnoixtk1cxo" path="res://gem_mask.gdshader" id="13_tqsku"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vb544"]
 resource_local_to_scene = true
@@ -71,6 +72,23 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.05
 scale_max = 0.1
 scale_curve = SubResource("CurveTexture_n0txf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n0txf"]
+resource_local_to_scene = true
+shader = ExtResource("13_tqsku")
+shader_parameter/rotation = Vector2(0, 0)
+shader_parameter/voronoi_points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/voronoi_vectors = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_uladk"]
+offsets = PackedFloat32Array(0, 0.474026, 0.675325, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.941558, 1, 1, 1, 0.116242, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dk2f7"]
+gradient = SubResource("Gradient_uladk")
+fill = 1
+fill_from = Vector2(0.504587, 0.527523)
+fill_to = Vector2(1, 1)
 
 [node name="Ball" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_vb544")
@@ -175,6 +193,13 @@ amount = 4
 texture = ExtResource("12_mkf06")
 lifetime = 0.6
 process_material = SubResource("ParticleProcessMaterial_uladk")
+
+[node name="GemMask" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_n0txf")
+scale = Vector2(1.21875, 1.21875)
+texture = SubResource("GradientTexture2D_dk2f7")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

@@ -23,6 +23,10 @@ var bomb = false
 var rubber = false
 var magnet = false
 var bonus = false
+var gem = false
+
+var voronoi_points: Array[Vector2]
+var voronoi_vectors: Array[Vector2]
 
 func _ready():
 	
@@ -68,12 +72,16 @@ func change_size(new_scale):
 	%RubberMask.scale *= new_scale
 	%MagnetMask.scale *= new_scale
 	%BonusParticles.scale *= new_scale
+	%GemMask.scale *= new_scale
 	
 func _process(delta):
 	if linear_velocity.length()>5:
 		moving = true
 		#modulate = Color.CRIMSON
 		$Timer.start(move_time)
+		
+		var rotation_vector = Vector2(cos(rotation), sin(rotation))
+		$GemMask.material.set_shader_parameter("rotation", rotation_vector)
 		
 
 func _on_timer_timeout():
@@ -95,6 +103,13 @@ func get_color_neighbors():
 	var out = []
 	for i in $CollisionArea.get_overlapping_areas():
 		if i.get_parent().ball_color == ball_color:
+			out.append(i.get_parent())
+	return out
+
+func get_gem_neighbors():
+	var out = []
+	for i in $CollisionArea.get_overlapping_areas():
+		if i.get_parent().gem:
 			out.append(i.get_parent())
 	return out
 
@@ -123,3 +138,17 @@ func set_magnet():
 func set_bonus():
 	bonus = true
 	%BonusParticles.emitting = true
+
+func set_gem():
+	gem = true
+	var rotation_vector = Vector2(cos(rotation), sin(rotation))
+	for i in range(15):
+		voronoi_points.append(Vector2(rng.randf(),rng.randf()))
+		var voronoi_angle = rng.randf() * TAU
+		voronoi_vectors.append(Vector2(cos(voronoi_angle), sin(voronoi_angle)))
+		$GemMask.material.set_shader_parameter("rotation", rotation_vector)
+		$GemMask.material.set_shader_parameter("voronoi_points", voronoi_points)
+		$GemMask.material.set_shader_parameter("voronoi_vectors", voronoi_vectors)
+	$GemMask.visible = true
+		
+	
