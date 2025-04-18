@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://lm04wrm3capq"]
+
+[ext_resource type="Texture2D" uid="uid://ba41xd8wssccj" path="res://assets/star_filled.svg" id="1_3t53c"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3t53c"]
+bounce = 0.3
+
+[node name="Star" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_3t53c")
+
+[node name="StarSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_3t53c")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.3, 0.3)
+polygon = PackedVector2Array(0, -135, 32, -31, 139, -33, 52, 30, 85, 129, 0, 69, -84, 129, -52, 28, -138, -33, -30, -32)

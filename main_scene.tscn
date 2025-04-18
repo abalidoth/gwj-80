@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://pxc3fdos1gn6"]
+[gd_scene load_steps=13 format=3 uid="uid://pxc3fdos1gn6"]
 
 [ext_resource type="Script" uid="uid://b8yxmspw78uu0" path="res://main_scene.gd" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://ctvsduuoh6mfs" path="res://assets/board-587598_1920.jpg" id="2_d5x1h"]
 [ext_resource type="Shader" uid="uid://driyddt5xycld" path="res://line.gdshader" id="3_d5x1h"]
 [ext_resource type="Texture2D" uid="uid://dysl54gguhy4" path="res://assets/drop_icon.svg" id="4_d5x1h"]
+[ext_resource type="PackedScene" uid="uid://lm04wrm3capq" path="res://assets/star.tscn" id="5_8mm7a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
 size = Vector2(546, 84)
@@ -36,6 +37,12 @@ shader_parameter/opacity = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d5x1h"]
 size = Vector2(606, 20)
 
+[sub_resource type="Curve2D" id="Curve2D_hq1ik"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 78, 147, 0, 0, 0, 0, 389, 148)
+}
+point_count = 2
+
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_0f027")
 
@@ -51,12 +58,12 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
-position = Vector2(557, 38)
+position = Vector2(724, 38)
 shape = SubResource("RectangleShape2D_2c62f")
 
 [node name="ProgressBar" type="ProgressBar" parent="KillBox"]
-offset_left = 287.0
-offset_right = 830.0
+offset_left = 447.0
+offset_right = 990.0
 offset_bottom = 82.0
 max_value = 1.0
 fill_mode = 3
@@ -65,20 +72,22 @@ show_percentage = false
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(250, 5)
-polygon = PackedVector2Array(8, 630, 14, -175, 48, -172, 48, 518, 307.328, 592.984, 579, 522, 577, -168, 625, -172, 622, 627)
+position = Vector2(408, 5)
+polygon = PackedVector2Array(8, 630, -411, 625, -409, -172, -352, -170, -359, 528, -171, 593, 14, 519, 14, -175, 48, -172, 48, 518, 307.328, 592.984, 579, 522, 577, -168, 625, -172, 622, 627)
 
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+position = Vector2(158, 0)
 texture = SubResource("NoiseTexture2D_7ycvg")
-polygon = PackedVector2Array(262, -31, 300, -43, 300, 524, 558.719, 594.964, 830, 523, 825, -20, 873, -23, 874, 672, 260, 661)
+polygon = PackedVector2Array(262, -31, 300, -43, 300, 524, 558.719, 594.964, 830, 523, 825, -20, 873, -23, 874, 672, -159, 654, -159, -35, -103, -35, -109, 535, 77, 596, 264, 525)
+uv = PackedVector2Array(419.013, 78.2267, 457.013, 66.2267, 457.013, 633.227, 715.732, 704.191, 987.013, 632.227, 982.013, 89.2267, 1030.01, 86.2267, 1031.01, 781.227, -1.98666, 763.227, -1.98666, 74.2267, 54.0133, 74.2267, 48.0133, 644.227, 218.013, 705.227, 421.013, 634.227)
 
 [node name="NextBallMarker" type="Marker2D" parent="."]
-position = Vector2(1036, 94)
+position = Vector2(1096, 113)
 
 [node name="Line2D" type="Line2D" parent="."]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_8mm7a")
-points = PackedVector2Array(1037, 94, 1037, 25, 791, 25)
+points = PackedVector2Array(1096, 115, 1096, 22.82, 791, 25)
 texture_mode = 1
 
 [node name="DropIcon" type="Sprite2D" parent="."]
@@ -94,11 +103,30 @@ one_shot = true
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(570, -154)
+position = Vector2(723, -151)
 shape = SubResource("RectangleShape2D_d5x1h")
 
 [node name="DeathTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="Star" parent="." instance=ExtResource("5_8mm7a")]
+position = Vector2(238, 37)
+freeze = true
+
+[node name="StarBar" type="ProgressBar" parent="."]
+offset_left = 70.0
+offset_top = 76.0
+offset_right = 402.0
+offset_bottom = 117.0
+max_value = 5.0
+show_percentage = false
+
+[node name="StarPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_hq1ik")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="StarPath"]
+position = Vector2(78, 147)
+rotation = 0.00321542
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

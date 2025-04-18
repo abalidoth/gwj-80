@@ -1,6 +1,7 @@
 extends Node2D
 
 var Ball = preload("res://ball.tscn")
+var Star = preload("res://assets/star.tscn")
 
 var SmokeBlast = preload("res://assets/smoke_blast.tscn")
 
@@ -13,8 +14,8 @@ var next_ball:Ball
 var size_least = 0.75
 var size_most = 1.25
 
-var drop_left = 330
-var drop_right = 790
+var drop_left = 488
+var drop_right = 952
 
 var match_size = 5
 
@@ -22,6 +23,11 @@ var explosion_force = 600
 var magnet_force = 50000
 var force_radius = 100
 var death_timer_grace = 0.25
+
+var num_stars = 0
+var star_req = 4
+var star_scaling = 1.2
+var star_score = 0
 
 func set_next_ball():
 	next_ball = Ball.instantiate()
@@ -77,6 +83,18 @@ func _process(delta):
 		$KillBox/ProgressBar.modulate=Color(1,0,0,0)
 		$KillBox/ProgressBar.value = 0
 	check_for_pop()
+	
+	if star_score >= star_req:
+		num_stars += 1
+		star_score -= star_req
+		star_req = floor(star_req * star_scaling)
+		$StarBar.max_value = star_req
+		$StarBar.value = star_score
+		var new_star = Star.instantiate()
+		add_child(new_star)
+		$StarPath/PathFollow2D.progress_ratio = rng.randf()
+		new_star.position = $StarPath/PathFollow2D.position
+	
 			
 func _physics_process(delta):
 	for ball1 in all_balls:
@@ -114,6 +132,7 @@ func check_for_pop():
 			else:
 				size += 1
 		if size >= match_size:
+			star_score += size
 			for i in group:
 				all_balls.erase(i)
 				i.pop()
@@ -142,6 +161,7 @@ func check_for_pop():
 			else:
 				size += 1
 		if size >= match_size:
+			star_score += size
 			for i in group:
 				all_balls.erase(i)
 				i.pop()
