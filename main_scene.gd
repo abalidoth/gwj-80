@@ -7,6 +7,7 @@ var SmokeBlast = preload("res://assets/smoke_blast.tscn")
 var all_balls:Array[Ball] = []
 var rng = RandomNumberGenerator.new()
 
+var mouse_x_clamped:float
 var next_ball:Ball
 
 var size_least = 0.75
@@ -20,6 +21,7 @@ var match_size = 5
 var explosion_force = 600
 var magnet_force = 50000
 var force_radius = 100
+var death_timer_grace = 0.25
 
 func set_next_ball():
 	next_ball = Ball.instantiate()
@@ -44,9 +46,11 @@ func set_next_ball():
 
 func _ready():
 	set_next_ball()
+	$KillBox/ProgressBar.modulate=Color(1,0,0,0)
 
 func _input(event):
-	var mouse_x_clamped = clamp(event.position.x,drop_left, drop_right)
+	if event is InputEventMouse:
+		mouse_x_clamped = clamp(event.position.x,drop_left, drop_right)
 	if event is InputEventMouseButton and $ClickTimer.is_stopped():
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			var new_ball = next_ball
@@ -60,13 +64,18 @@ func _input(event):
 		$Line2D.points[-1] = Vector2(mouse_x_clamped,25)
 
 func _process(delta):
-	var settled = true
-	for ball in all_balls:
-		if ball.moving:
-			settled = false
-	if settled:
-		if len($KillBox.get_overlapping_areas())>0 and $ClickTimer.is_stopped():
-			game_over()
+	if len($KillBox.get_overlapping_areas())>0:
+		if $DeathTimer.is_stopped():
+			$DeathTimer.start()
+		else:
+			var time_left = 1-($DeathTimer.time_left/$DeathTimer.wait_time)
+			if time_left > death_timer_grace:
+				$KillBox/ProgressBar.value = time_left
+				$KillBox/ProgressBar.modulate = Color(1,0,0,time_left)
+	else:
+		$DeathTimer.stop()
+		$KillBox/ProgressBar.modulate=Color(1,0,0,0)
+		$KillBox/ProgressBar.value = 0
 	check_for_pop()
 			
 func _physics_process(delta):
@@ -159,3 +168,7 @@ func _on_ball_explosion(explosion_position:Vector2):
 	var smoke_tween = smoke_blast.create_tween()
 	smoke_tween.tween_interval(2)
 	smoke_tween.tween_callback(smoke_blast.queue_free)
+
+
+func _on_death_timer_timeout():
+	game_over()
