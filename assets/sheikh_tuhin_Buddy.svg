@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg3570" viewBox="0 0 485.2 493.06" version="1.0">
+  <g id="layer1" transform="translate(-77.174 10.598)">
+    <g id="g2577" transform="matrix(2.332 0 0 2.332 997.06 -122.71)">
+      <g id="g2579" transform="translate(1.4286 -131.43)">
+        <rect id="rect2581" rx="12" ry="12" height="138.57" width="84.286" y="252.36" x="-334.29"/>
+        <path id="path2583" transform="matrix(.72059 0 0 .72059 -47.143 90.303)" d="m-291.43 172.36a48.571 48.571 0 1 1 -97.14 0 48.571 48.571 0 1 1 97.14 0z"/>
+      </g>
+      <rect id="rect2585" transform="rotate(40)" rx="8" ry="8" height="114.29" width="25.714" y="298.63" x="-172.71"/>
+      <rect id="rect2587" transform="matrix(-.76604 .64279 .64279 .76604 0 0)" rx="8" ry="8" height="114.29" width="25.714" y="-74.733" x="272.25"/>
+    </g>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Buddy</dc:title>
+        <dc:date>2008-11-03T14:42:04</dc:date>
+        <dc:description>clip art, clipart, gents, gents, how i did it, image, male symbol, male symbol, man, man, media, person, person, png, public domain, silhouette, silhouette, svg, </dc:description>
+        <dc:source>http://openclipart.org/detail/19935/buddy-by-sheikh_tuhin-19935</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>sheikh_tuhin</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>gents</rdf:li>
+            <rdf:li>how i did it</rdf:li>
+            <rdf:li>image</rdf:li>
+            <rdf:li>male symbol</rdf:li>
+            <rdf:li>man</rdf:li>
+            <rdf:li>media</rdf:li>
+            <rdf:li>person</rdf:li>
+            <rdf:li>png</rdf:li>
+            <rdf:li>public domain</rdf:li>
+            <rdf:li>silhouette</rdf:li>
+            <rdf:li>svg</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

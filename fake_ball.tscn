@@ -1,0 +1,173 @@
+[gd_scene load_steps=27 format=3 uid="uid://dvh7oynim7a83"]
+
+[ext_resource type="Script" uid="uid://dqx3tuim5aqgg" path="res://fake_ball.gd" id="1_0w5ce"]
+[ext_resource type="Texture2D" uid="uid://clrsyvp8a54ft" path="res://assets/circle.svg" id="2_t7jhe"]
+[ext_resource type="Texture2D" uid="uid://bhfce4wpg476i" path="res://assets/star_icon.svg" id="3_asnma"]
+[ext_resource type="Texture2D" uid="uid://8e4ocvt055bf" path="res://assets/circle_icon.svg" id="4_m6rb1"]
+[ext_resource type="Texture2D" uid="uid://cp24xn47miu5o" path="res://assets/triangle_icon.svg" id="5_jdju0"]
+[ext_resource type="Texture2D" uid="uid://bxwkk3k46pdqi" path="res://assets/square_icon.svg" id="6_wmncj"]
+[ext_resource type="Texture2D" uid="uid://bnsmujdw0hpjl" path="res://assets/cross_icon.svg" id="7_oovk1"]
+[ext_resource type="Texture2D" uid="uid://dlqglm67epcd2" path="res://assets/smoke_texture.tres" id="8_627tk"]
+[ext_resource type="Material" uid="uid://bgshujn2pcqsi" path="res://assets/smoke_particles.tres" id="9_bbydn"]
+[ext_resource type="Texture2D" uid="uid://oi6yvr7caac" path="res://assets/rubber_mask.svg" id="10_omyf7"]
+[ext_resource type="Shader" uid="uid://7lr3ytpf4wla" path="res://magnet.gdshader" id="11_tf7yr"]
+[ext_resource type="Texture2D" uid="uid://cb6scvrh4l7y4" path="res://assets/sparkle.svg" id="12_y7hky"]
+[ext_resource type="Shader" uid="uid://dlbnoixtk1cxo" path="res://gem_mask.gdshader" id="13_cwrwx"]
+
+[sub_resource type="Gradient" id="Gradient_01kih"]
+colors = PackedColorArray(1, 1, 1, 0.490196, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1iob0"]
+gradient = SubResource("Gradient_01kih")
+fill = 1
+fill_from = Vector2(0.706422, 0.279817)
+fill_to = Vector2(0.504587, 0.449541)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mkf06"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mkf06"]
+shader = ExtResource("11_tf7yr")
+shader_parameter/frequency = 15.0
+shader_parameter/speed = 5.0
+
+[sub_resource type="Gradient" id="Gradient_tqsku"]
+offsets = PackedFloat32Array(0, 0.532468, 1)
+colors = PackedColorArray(0, 0, 0, 0.639216, 0, 0, 0, 0.623529, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n0txf"]
+gradient = SubResource("Gradient_tqsku")
+fill = 1
+fill_from = Vector2(0.5, 0.495413)
+fill_to = Vector2(0.862385, 0.899083)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tqsku"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_tqsku"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_n0txf"]
+curve = SubResource("Curve_tqsku")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uladk"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 24.13
+angle_min = 1.07288e-05
+angle_max = 360.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_n0txf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n0txf"]
+resource_local_to_scene = true
+shader = ExtResource("13_cwrwx")
+shader_parameter/rotation = Vector2(0, 0)
+shader_parameter/voronoi_points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/voronoi_vectors = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_uladk"]
+offsets = PackedFloat32Array(0, 0.474026, 0.675325, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.941558, 1, 1, 1, 0.116242, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dk2f7"]
+gradient = SubResource("Gradient_uladk")
+fill = 1
+fill_from = Vector2(0.504587, 0.527523)
+fill_to = Vector2(1, 1)
+
+[node name="FakeBall" type="Node2D"]
+script = ExtResource("1_0w5ce")
+
+[node name="Circle" type="Sprite2D" parent="."]
+scale = Vector2(0.206667, 0.206667)
+texture = ExtResource("2_t7jhe")
+
+[node name="Icons" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="StarIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(-7.62939e-06, -3)
+scale = Vector2(0.179389, 0.179389)
+texture = ExtResource("3_asnma")
+
+[node name="CircleIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(-3.8147e-06, -3.8147e-06)
+scale = Vector2(0.211538, 0.211538)
+texture = ExtResource("4_m6rb1")
+
+[node name="TriangleIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(0.999992, -4.00002)
+scale = Vector2(0.139831, 0.139831)
+texture = ExtResource("5_jdju0")
+
+[node name="SquareIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.190722, 0.190722)
+texture = ExtResource("6_wmncj")
+
+[node name="CrossIcon" type="Sprite2D" parent="Icons"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.152778, 0.152778)
+texture = ExtResource("7_oovk1")
+
+[node name="Shine" type="Sprite2D" parent="."]
+top_level = true
+texture = SubResource("GradientTexture2D_1iob0")
+
+[node name="ShineTransform" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../Shine")
+update_rotation = false
+update_scale = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+follow_viewport_enabled = true
+
+[node name="SmokeParticles" type="GPUParticles2D" parent="CanvasLayer"]
+unique_name_in_owner = true
+emitting = false
+texture = ExtResource("8_627tk")
+randomness = 0.88
+process_material = ExtResource("9_bbydn")
+
+[node name="SmokeTransform" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../CanvasLayer/SmokeParticles")
+
+[node name="RubberMask" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.403922)
+material = SubResource("CanvasItemMaterial_mkf06")
+position = Vector2(2.98023e-07, 10)
+scale = Vector2(0.251613, 0.247863)
+texture = ExtResource("10_omyf7")
+
+[node name="MagnetMask" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_mkf06")
+texture = SubResource("GradientTexture2D_n0txf")
+
+[node name="BonusParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_tqsku")
+emitting = false
+amount = 4
+texture = ExtResource("12_y7hky")
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_uladk")
+
+[node name="GemMask" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_n0txf")
+scale = Vector2(1.21875, 1.21875)
+texture = SubResource("GradientTexture2D_dk2f7")

@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1qk73t2k4jfb"]
+
+[ext_resource type="Script" uid="uid://dgcvijerdh8kq" path="res://page_1.gd" id="1_obmnk"]
+[ext_resource type="Texture2D" uid="uid://ctvsduuoh6mfs" path="res://assets/board-587598_1920.jpg" id="2_bmkvl"]
+[ext_resource type="PackedScene" uid="uid://dvh7oynim7a83" path="res://fake_ball.tscn" id="3_mhym8"]
+[ext_resource type="Texture2D" uid="uid://tgcfhw5hcgs6" path="res://assets/arrow-35172.svg" id="4_37lux"]
+[ext_resource type="Texture2D" uid="uid://dcbncdjpamui7" path="res://assets/fireworks-305732.svg" id="5_jexno"]
+[ext_resource type="PackedScene" uid="uid://lm04wrm3capq" path="res://assets/star.tscn" id="6_28cmo"]
+[ext_resource type="Texture2D" uid="uid://b5oau311eteb0" path="res://assets/back_icon.svg" id="7_28cmo"]
+[ext_resource type="Texture2D" uid="uid://bcla1vjxnvygh" path="res://assets/play_icon.svg" id="8_gt8u2"]
+
+[node name="Page1" type="Node2D"]
+script = ExtResource("1_obmnk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(575, 323.75)
+scale = Vector2(0.598958, 0.474321)
+texture = ExtResource("2_bmkvl")
+
+[node name="FakeBall" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(143, 95)
+
+[node name="FakeBall2" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(351, 155)
+ball_symbol = 3
+
+[node name="FakeBall3" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(364, 63)
+ball_symbol = 4
+
+[node name="FakeBall4" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(296, 100)
+ball_symbol = 2
+
+[node name="FakeBall5" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(219, 98)
+ball_symbol = 1
+
+[node name="FakeBall6" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(161, 366)
+
+[node name="FakeBall7" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(369, 426)
+ball_color = 4
+
+[node name="FakeBall8" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(382, 334)
+ball_color = 3
+
+[node name="FakeBall9" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(314, 371)
+ball_color = 2
+
+[node name="FakeBall10" parent="." instance=ExtResource("3_mhym8")]
+position = Vector2(237, 369)
+ball_color = 1
+
+[node name="Arrow-35172" type="Sprite2D" parent="."]
+position = Vector2(557, 254)
+texture = ExtResource("4_37lux")
+
+[node name="Fireworks-305732" type="Sprite2D" parent="."]
+position = Vector2(854, 183)
+scale = Vector2(0.682222, 0.651188)
+texture = ExtResource("5_jexno")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 737.0
+offset_top = 454.0
+offset_right = 975.0
+offset_bottom = 481.0
+indeterminate = true
+editor_preview_indeterminate = false
+
+[node name="Star" parent="." instance=ExtResource("6_28cmo")]
+position = Vector2(857, 402)
+freeze = true
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 373.0
+offset_top = 522.0
+offset_right = 482.0
+offset_bottom = 597.0
+icon = ExtResource("7_28cmo")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ForwardButton" type="Button" parent="."]
+offset_left = 636.0
+offset_top = 525.0
+offset_right = 743.0
+offset_bottom = 596.0
+icon = ExtResource("8_gt8u2")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ForwardButton" to="." method="_on_forward_button_pressed"]

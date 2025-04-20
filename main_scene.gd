@@ -40,7 +40,7 @@ func set_next_ball():
 	var ball_color:Color = next_ball.get_node("Circle").modulate
 	$Line2D.material.set_shader_parameter("color1",ball_color)
 	$DropIcon.modulate = ball_color
-	match rng.randi() % 10:
+	match rng.randi() % 15:
 		0:
 			next_ball.set_bomb()
 		1:
@@ -89,15 +89,18 @@ func _process(delta):
 	
 	if star_score >= star_req:
 		num_stars += 1
+		$StarDing.play()
 		star_score -= star_req
-		star_req = floor(star_req * star_scaling)
-		$StarBar.max_value = star_req
-		$StarBar.value = star_score
+		star_req = int(star_req * star_scaling)
 		var new_star = Star.instantiate()
 		add_child(new_star)
 		$StarPath/PathFollow2D.progress_ratio = rng.randf()
 		new_star.position = $StarPath/PathFollow2D.position
 	
+	$StarBar.max_value = star_req
+	$StarBar.value = star_score
+	
+	next_ball.rotation += delta
 			
 func _physics_process(delta):
 	for ball1 in all_balls:
@@ -137,7 +140,7 @@ func check_for_pop():
 				size += 1
 		if size >= match_size:
 			star_score += size
-			$StarBar.max_value = star_req
+			$StarBar.value = star_score
 			for i in group:
 				to_pop.append(i)
 				#all_balls.erase(i)
@@ -168,11 +171,13 @@ func check_for_pop():
 				size += 1
 		if size >= match_size:
 			star_score += size
-			$StarBar.max_value = star_req
+			$StarBar.value = star_score
 			for i in group:
 				to_pop.append(i)
 				#all_balls.erase(i)
 				#i.pop()
+	if to_pop:
+		$Pop.play()
 	for i in to_pop:
 		var gem_neighbors = i.get_gem_neighbors()
 		for j in gem_neighbors:
@@ -193,6 +198,7 @@ func game_over():
 	get_tree().change_scene_to_file("res://main_scene.tscn")
 
 func _on_ball_explosion(explosion_position:Vector2):
+	$Boom.play()
 	var smoke_blast = SmokeBlast.instantiate()
 	add_child(smoke_blast)
 	smoke_blast.position = explosion_position

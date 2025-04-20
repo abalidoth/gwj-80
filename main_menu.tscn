@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmbx3g0hu3h62"]
+
+[ext_resource type="Script" uid="uid://cs0waaslofwc2" path="res://main_menu.gd" id="1_glbon"]
+[ext_resource type="Texture2D" uid="uid://ctvsduuoh6mfs" path="res://assets/board-587598_1920.jpg" id="1_jix8l"]
+[ext_resource type="Texture2D" uid="uid://bcla1vjxnvygh" path="res://assets/play_icon.svg" id="3_nlkkf"]
+[ext_resource type="Texture2D" uid="uid://dbf83dngq8fci" path="res://assets/sheikh_tuhin_Buddy.svg" id="4_qe12f"]
+[ext_resource type="Texture2D" uid="uid://i4cjhtlqwytj" path="res://assets/mono-question-mark.svg" id="5_8qtwp"]
+
+[sub_resource type="Curve2D" id="Curve2D_dy7ct"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 347, 14, 0, 0, 0, 0, 795, 16)
+}
+point_count = 2
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_glbon")
+
+[node name="Board-5875981920" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(0.6, 0.475422)
+texture = ExtResource("1_jix8l")
+
+[node name="PlayButton" type="Button" parent="."]
+offset_left = 502.0
+offset_top = 236.0
+offset_right = 638.0
+offset_bottom = 399.0
+icon = ExtResource("3_nlkkf")
+expand_icon = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 443.0
+offset_top = 419.0
+offset_right = 702.0
+offset_bottom = 551.0
+
+[node name="CreditsButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("4_qe12f")
+expand_icon = true
+
+[node name="HelpButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("5_8qtwp")
+expand_icon = true
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_dy7ct")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(347, 14)
+rotation = 0.00446426
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(498, 233, 500, 398, 498, 418, 442, 420, 442, 551, 702, 551, 702, 420, 637, 418, 637, 237)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/HelpButton" to="." method="_on_help_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GWJ 80"
-run/main_scene="uid://pxc3fdos1gn6"
+run/main_scene="uid://dmbx3g0hu3h62"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

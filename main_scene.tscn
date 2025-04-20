@@ -1,10 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://pxc3fdos1gn6"]
+[gd_scene load_steps=17 format=3 uid="uid://pxc3fdos1gn6"]
 
 [ext_resource type="Script" uid="uid://b8yxmspw78uu0" path="res://main_scene.gd" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://ctvsduuoh6mfs" path="res://assets/board-587598_1920.jpg" id="2_d5x1h"]
 [ext_resource type="Shader" uid="uid://driyddt5xycld" path="res://line.gdshader" id="3_d5x1h"]
 [ext_resource type="Texture2D" uid="uid://dysl54gguhy4" path="res://assets/drop_icon.svg" id="4_d5x1h"]
 [ext_resource type="PackedScene" uid="uid://lm04wrm3capq" path="res://assets/star.tscn" id="5_8mm7a"]
+[ext_resource type="AudioStream" uid="uid://dbbgjtydoh81p" path="res://assets/Space Jazz.mp3" id="6_hq1ik"]
+[ext_resource type="AudioStream" uid="uid://bbfowl78f7j16" path="res://assets/679016__leonelale71__typerwriter_ding.wav" id="7_nfk4m"]
+[ext_resource type="AudioStream" uid="uid://du5ix11bto88d" path="res://assets/435695__samsterbirdies__big-boom.ogg" id="8_66tet"]
+[ext_resource type="AudioStream" uid="uid://7lduv2fhelby" path="res://assets/554022__dodrio__pop.ogg" id="9_7ycvg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
 size = Vector2(546, 84)
@@ -128,5 +132,19 @@ curve = SubResource("Curve2D_hq1ik")
 [node name="PathFollow2D" type="PathFollow2D" parent="StarPath"]
 position = Vector2(78, 147)
 rotation = 0.00321542
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_hq1ik")
+autoplay = true
+
+[node name="StarDing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_nfk4m")
+max_polyphony = 4
+
+[node name="Boom" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_66tet")
+
+[node name="Pop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_7ycvg")
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

@@ -1,0 +1,175 @@
+[gd_scene load_steps=9 format=3 uid="uid://by8a802xt1ltg"]
+
+[ext_resource type="Texture2D" uid="uid://ctvsduuoh6mfs" path="res://assets/board-587598_1920.jpg" id="1_cwt06"]
+[ext_resource type="Script" uid="uid://om2wehdfbueh" path="res://page_2.gd" id="1_n0c2w"]
+[ext_resource type="PackedScene" uid="uid://dvh7oynim7a83" path="res://fake_ball.tscn" id="2_n0c2w"]
+[ext_resource type="Texture2D" uid="uid://tgcfhw5hcgs6" path="res://assets/arrow-35172.svg" id="3_3f563"]
+[ext_resource type="Texture2D" uid="uid://dcbncdjpamui7" path="res://assets/fireworks-305732.svg" id="4_f3av0"]
+[ext_resource type="Texture2D" uid="uid://dbleelt06bq2q" path="res://assets/arrow-310633.svg" id="5_i2451"]
+[ext_resource type="Texture2D" uid="uid://c617cne6a3d4n" path="res://assets/1270762888.svg" id="6_m101u"]
+[ext_resource type="Texture2D" uid="uid://b5oau311eteb0" path="res://assets/back_icon.svg" id="7_2kuhb"]
+
+[node name="Page2" type="Node2D"]
+script = ExtResource("1_n0c2w")
+
+[node name="Board-5875981920" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(0.6, 0.475422)
+texture = ExtResource("1_cwt06")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-1, 300, 638.95, 300, 1151, 300)
+
+[node name="Line2D2" type="Line2D" parent="."]
+points = PackedVector2Array(356, 641, 356, 300, 547, 300, 547, 1, 547, 300, 794, 300, 794, 642)
+
+[node name="FakeBall" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(218, 131)
+ball_color = 2
+ball_symbol = 3
+gem = true
+
+[node name="FakeBall7" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(168, 460)
+ball_color = 3
+ball_symbol = 4
+magnet = true
+
+[node name="FakeBall2" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(88, 253)
+
+[node name="FakeBall3" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(55, 183)
+
+[node name="FakeBall4" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(218, 53)
+
+[node name="FakeBall12" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(665, 53)
+ball_color = 1
+ball_symbol = 4
+
+[node name="FakeBall13" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(630, 120)
+ball_color = 1
+
+[node name="FakeBall14" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(674, 184)
+ball_color = 1
+ball_symbol = 2
+
+[node name="FakeBall15" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(621, 240)
+ball_color = 1
+ball_symbol = 3
+
+[node name="FakeBall17" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(959, 606)
+ball_color = 4
+rubber = true
+
+[node name="FakeBall16" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(725, 240)
+ball_color = 1
+bomb = true
+
+[node name="FakeBall8" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(426, 592)
+ball_color = 2
+ball_symbol = 3
+
+[node name="FakeBall9" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(427, 516)
+ball_symbol = 3
+
+[node name="FakeBall10" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(429, 438)
+ball_color = 1
+ball_symbol = 3
+
+[node name="FakeBall11" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(430, 360)
+ball_color = 4
+ball_symbol = 3
+bonus = true
+
+[node name="FakeBall5" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(144, 64)
+
+[node name="FakeBall6" parent="." instance=ExtResource("2_n0c2w")]
+position = Vector2(86, 113)
+
+[node name="Arrow-35172" type="Sprite2D" parent="."]
+position = Vector2(328, 143)
+scale = Vector2(0.612745, 0.56383)
+texture = ExtResource("3_3f563")
+
+[node name="Arrow-35174" type="Sprite2D" parent="."]
+position = Vector2(830, 138)
+scale = Vector2(0.692631, 0.705051)
+texture = ExtResource("3_3f563")
+
+[node name="Arrow-35173" type="Sprite2D" parent="."]
+position = Vector2(570, 466)
+scale = Vector2(0.612745, 0.56383)
+texture = ExtResource("3_3f563")
+
+[node name="Fireworks-305732" type="Sprite2D" parent="."]
+position = Vector2(463, 134)
+scale = Vector2(0.273333, 0.258099)
+texture = ExtResource("4_f3av0")
+
+[node name="Fireworks-305733" type="Sprite2D" parent="."]
+position = Vector2(703, 474)
+scale = Vector2(0.273333, 0.258099)
+texture = ExtResource("4_f3av0")
+
+[node name="Arrow-310636" type="Sprite2D" parent="."]
+position = Vector2(167, 557)
+rotation = 4.71239
+scale = Vector2(0.170041, 0.203921)
+texture = ExtResource("5_i2451")
+
+[node name="Arrow-310634" type="Sprite2D" parent="."]
+position = Vector2(268, 460)
+rotation = 3.14159
+scale = Vector2(0.154737, 0.169453)
+texture = ExtResource("5_i2451")
+
+[node name="Arrow-310637" type="Sprite2D" parent="."]
+position = Vector2(908.775, 480.229)
+rotation = 1.22697
+scale = Vector2(0.374616, 0.253092)
+texture = ExtResource("5_i2451")
+
+[node name="Arrow-310638" type="Sprite2D" parent="."]
+position = Vector2(1038, 457)
+rotation = -1.0472
+scale = Vector2(0.489336, 0.368024)
+texture = ExtResource("5_i2451")
+
+[node name="Arrow-310635" type="Sprite2D" parent="."]
+position = Vector2(167, 368)
+rotation = 1.5708
+scale = Vector2(0.169453, 0.169453)
+texture = ExtResource("5_i2451")
+
+[node name="Arrow-310633" type="Sprite2D" parent="."]
+position = Vector2(69, 456)
+scale = Vector2(0.181, 0.181)
+texture = ExtResource("5_i2451")
+
+[node name="1270762888" type="Sprite2D" parent="."]
+position = Vector2(1022, 143)
+scale = Vector2(0.250403, 0.250403)
+texture = ExtResource("6_m101u")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 580.0
+offset_top = 579.0
+offset_right = 643.0
+offset_bottom = 630.0
+icon = ExtResource("7_2kuhb")
+expand_icon = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

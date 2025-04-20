@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dn1rtqunujxnp"]
+[gd_scene load_steps=31 format=3 uid="uid://dn1rtqunujxnp"]
 
 [ext_resource type="Script" uid="uid://d2flbffslhwpm" path="res://ball.gd" id="1_41u45"]
 [ext_resource type="Texture2D" uid="uid://clrsyvp8a54ft" path="res://assets/circle.svg" id="1_x8fbi"]
@@ -13,6 +13,7 @@
 [ext_resource type="Shader" uid="uid://7lr3ytpf4wla" path="res://magnet.gdshader" id="11_vb544"]
 [ext_resource type="Texture2D" uid="uid://cb6scvrh4l7y4" path="res://assets/sparkle.svg" id="12_mkf06"]
 [ext_resource type="Shader" uid="uid://dlbnoixtk1cxo" path="res://gem_mask.gdshader" id="13_tqsku"]
+[ext_resource type="AudioStream" uid="uid://dk5bhcq6bku71" path="res://assets/421317__jaszunio15__click_184.wav" id="15_uladk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vb544"]
 resource_local_to_scene = true
@@ -92,6 +93,8 @@ fill_to = Vector2(1, 1)
 
 [node name="Ball" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_vb544")
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("1_41u45")
 
 [node name="PhysicsShape" type="CollisionShape2D" parent="."]
@@ -201,7 +204,16 @@ material = SubResource("ShaderMaterial_n0txf")
 scale = Vector2(1.21875, 1.21875)
 texture = SubResource("GradientTexture2D_dk2f7")
 
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_uladk")
+volume_db = -10.306
+pitch_scale = 0.5
+max_polyphony = 3
+
+[node name="ClickTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_shape_entered" from="CollisionArea" to="." method="_on_collision_area_area_shape_entered"]

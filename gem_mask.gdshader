@@ -22,7 +22,7 @@ void fragment() {
 			min_index = i;
 		}
 	}
-	float this_dot = (dot(voronoi_vectors[min_index],rotation)+1.0)/2.0;
+	float this_dot = 1.0-abs(dot(voronoi_vectors[min_index],rotation));
 	if(distance(UV,vec2(0.5,0.5))<0.5)
 	{
 		COLOR= vec4(1.0,1.0,1.0, this_dot*opacity);

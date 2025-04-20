@@ -10,8 +10,7 @@ enum BALL_SYMBOL {SQUARE, CIRCLE, TRIANGLE, CROSS, STAR}
 var ball_color : BALL_COLOR
 var ball_symbol : BALL_SYMBOL
 
-var moving = true
-var move_time = 0.3
+var relvel_thresh = 100
 
 var neighbors = {}
 var neighbor_lines = {}
@@ -30,7 +29,6 @@ var voronoi_vectors: Array[Vector2]
 
 func _ready():
 	
-	$Timer.start(move_time)
 	
 	ball_color = rng.randi() % BALL_COLOR.size()
 	ball_symbol = rng.randi() % BALL_SYMBOL.size()
@@ -59,8 +57,7 @@ func _ready():
 		BALL_SYMBOL.CROSS:
 			%Icons/CrossIcon.visible=true
 
-func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free() # Replace with function body.
+
 
 func change_size(new_scale):
 	$Circle.scale *= new_scale
@@ -75,18 +72,12 @@ func change_size(new_scale):
 	%GemMask.scale *= new_scale
 	
 func _process(delta):
-	if linear_velocity.length()>5:
-		moving = true
-		#modulate = Color.CRIMSON
-		$Timer.start(move_time)
 		
-		var rotation_vector = Vector2(cos(rotation), sin(rotation))
-		$GemMask.material.set_shader_parameter("rotation", rotation_vector)
+	var rotation_vector = Vector2(cos(rotation), sin(rotation))
+	$GemMask.material.set_shader_parameter("rotation", rotation_vector)
 		
 
-func _on_timer_timeout():
-	moving = false
-	#modulate = Color.WHITE
+
 
 
 func _on_collision_area_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
@@ -130,6 +121,7 @@ func set_rubber():
 	rubber = true
 	%RubberMask.visible = true
 	physics_material_override.bounce = 0.8
+	$Click.pitch_scale = 0.25
 	
 func set_magnet():
 	magnet = true
@@ -152,3 +144,19 @@ func set_gem():
 	$GemMask.visible = true
 		
 	
+func _on_body_entered(body):
+	var relvel
+	if body is Ball:
+		relvel = (linear_velocity - body.linear_velocity).length()
+		if get_instance_id() > body.get_instance_id() and relvel > relvel_thresh:
+			if $ClickTimer.is_stopped():
+				$Click.play()
+				$ClickTimer.start()
+				
+	else:
+		relvel = linear_velocity.length()
+		if relvel > relvel_thresh:
+			if $ClickTimer.is_stopped():
+				$Click.play()
+				$ClickTimer.start()
+		
