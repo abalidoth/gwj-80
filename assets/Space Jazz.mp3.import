@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Space Jazz.mp3-ac893bda8a4eee7c3a6bc4e426c06f
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

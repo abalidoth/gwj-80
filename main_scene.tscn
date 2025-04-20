@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://pxc3fdos1gn6"]
+[gd_scene load_steps=16 format=3 uid="uid://pxc3fdos1gn6"]
 
 [ext_resource type="Script" uid="uid://b8yxmspw78uu0" path="res://main_scene.gd" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://ctvsduuoh6mfs" path="res://assets/board-587598_1920.jpg" id="2_d5x1h"]
@@ -13,20 +13,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
 size = Vector2(546, 84)
 
-[sub_resource type="Gradient" id="Gradient_nfk4m"]
-offsets = PackedFloat32Array(0, 0.676056, 1)
-colors = PackedColorArray(0.663125, 0.242975, 0, 1, 0.936047, 0.456737, 0.207696, 1, 0, 1, 0.666667, 1)
+[sub_resource type="Gradient" id="Gradient_7ycvg"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.5664, 0.59, 0.5546, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_66tet"]
-noise_type = 2
-cellular_distance_function = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ycvg"]
-width = 1024
-height = 1024
-invert = true
-color_ramp = SubResource("Gradient_nfk4m")
-noise = SubResource("FastNoiseLite_66tet")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wr18j"]
+gradient = SubResource("Gradient_7ycvg")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8mm7a"]
 shader = ExtResource("3_d5x1h")
@@ -81,7 +73,7 @@ polygon = PackedVector2Array(8, 630, -411, 625, -409, -172, -352, -170, -359, 52
 
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
 position = Vector2(158, 0)
-texture = SubResource("NoiseTexture2D_7ycvg")
+texture = SubResource("GradientTexture1D_wr18j")
 polygon = PackedVector2Array(262, -31, 300, -43, 300, 524, 558.719, 594.964, 830, 523, 825, -20, 873, -23, 874, 672, -159, 654, -159, -35, -103, -35, -109, 535, 77, 596, 264, 525)
 uv = PackedVector2Array(419.013, 78.2267, 457.013, 66.2267, 457.013, 633.227, 715.732, 704.191, 987.013, 632.227, 982.013, 89.2267, 1030.01, 86.2267, 1031.01, 781.227, -1.98666, 763.227, -1.98666, 74.2267, 54.0133, 74.2267, 48.0133, 644.227, 218.013, 705.227, 421.013, 634.227)
 
